@@ -8,6 +8,8 @@ slider.addEventListener('mousedown',(e)=>{
 	slider.classList.add('active');
 	startX=e.pageX - slider.offsetLeft;
 	scrollLeft=slider.scrollLeft;
+	console.log("pageX",e.pageX);
+	console.log("scrollLeft",scrollLeft)
 })
 
 slider.addEventListener('mouseleave',()=>{
@@ -19,14 +21,17 @@ slider.addEventListener('mouseup',()=>{
 	slider.classList.remove("active");
 })
 
-
+let timeoutId;
 slider.addEventListener('mousemove',(e)=>{
 	if(!isDown)return;
 	e.preventDefault();
 	const x = e.pageX - slider.offsetLeft;
 	const walk = (x-startX)*2;
-	slider.scrollLeft = scrollLeft - walk;
-	
+	// slider.scrollLeft = scrollLeft - walk;
+	clearTimeout(timeoutId); // Clear any previous timeout
+    timeoutId = setTimeout(() => {
+        slider.scrollLeft = scrollLeft - walk;
+    }, 50);
 })
 
 
