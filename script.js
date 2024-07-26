@@ -8,6 +8,7 @@ slider.addEventListener('mousedown', (e) => {
   slider.classList.add('active');
   startX = e.pageX - slider.offsetLeft;
   scrollLeft = slider.scrollLeft;
+  console.log('MouseDown', { startX, scrollLeft });
 });
 
 slider.addEventListener('mouseleave', () => {
@@ -18,12 +19,16 @@ slider.addEventListener('mouseleave', () => {
 slider.addEventListener('mouseup', () => {
   isDown = false;
   slider.classList.remove('active');
+  console.log('MouseUp', { scrollLeft: slider.scrollLeft });
 });
 
 slider.addEventListener('mousemove', (e) => {
   if (!isDown) return;
   e.preventDefault();
   const x = e.pageX - slider.offsetLeft;
-  const walk = (x - startX) * 3; // Scroll speed multiplier
+  const walk = (x - startX) * 3;
   slider.scrollLeft = scrollLeft - walk;
+  console.log('MouseMove', { x, walk, scrollLeft: slider.scrollLeft });
 });
+
+console.log('Script loaded');
